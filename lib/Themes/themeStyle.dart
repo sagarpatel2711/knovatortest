@@ -9,4 +9,6 @@ class CustomTextStyle {
       color: AppColors.blueColor, fontSize: 16, fontWeight: FontWeight.bold);
   static TextStyle text3 = TextStyle(
       color: AppColors.whiteColor, fontSize: 25, fontWeight: FontWeight.bold);
+  static TextStyle text4 = TextStyle(
+      color: AppColors.whiteColor, fontSize: 14, fontWeight: FontWeight.bold);
 }

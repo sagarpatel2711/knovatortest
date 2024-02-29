@@ -4,10 +4,16 @@ part of 'pages.dart';
 
 abstract class Routes {
   static const ROOT = _Paths.ROOT;
-  static const HomeView = _Paths.HOMEVIEW;
+  static const PreviewView = _Paths.PreviewView;
+  static const HomeView = _Paths.HomeView;
+  static const AddUpdateResumeView = _Paths.AddUpdateResumeView;
+  static const ResumePreviewView = _Paths.ResumePreviewView;
 }
 
 abstract class _Paths {
   static const ROOT = '/';
-  static const HOMEVIEW = '/homeview';
+  static const PreviewView = '/PreviewView';
+  static const HomeView = '/HomeView';
+  static const AddUpdateResumeView = '/AddUpdateResumeView';
+  static const ResumePreviewView = '/ResumePreviewView';
 }

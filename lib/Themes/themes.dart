@@ -5,7 +5,13 @@ import 'appColors.dart';
 class Themes {
   static final lightTheme = ThemeData.light().copyWith(
       // focusColor: AppColors.white,
-      // scaffoldBackgroundColor: AppColors.white,
+      scaffoldBackgroundColor: AppColors.greyBlueColor,
+      appBarTheme: AppBarTheme(
+          color: AppColors.greyBlueColor,
+          centerTitle: true,
+          elevation: 0,
+          titleTextStyle: TextStyle(
+              color: AppColors.whiteColor, fontWeight: FontWeight.bold)),
       dividerColor: AppColors.blackColor,
       textTheme: const TextTheme(
           titleLarge: TextStyle(
@@ -19,7 +25,7 @@ class Themes {
           labelMedium: TextStyle(
               color: AppColors.blackColor,
               fontWeight: FontWeight.normal,
-              fontSize: 16),
+              fontSize: 12),
           bodySmall: TextStyle(
               color: AppColors.greyColor,
               fontWeight: FontWeight.normal,
