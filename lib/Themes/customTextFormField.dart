@@ -16,6 +16,7 @@ class CustomTextFormField extends StatelessWidget {
   Function(String)? onFieldSubmitted;
   Widget? prefix;
   bool borderNone;
+  int maxLines;
 
   CustomTextFormField(
       {super.key,
@@ -29,6 +30,7 @@ class CustomTextFormField extends StatelessWidget {
       this.inputFormatters,
       this.onFieldSubmitted,
       this.prefix,
+      this.maxLines = 1,
       this.borderNone = false});
 
   @override
@@ -37,6 +39,7 @@ class CustomTextFormField extends StatelessWidget {
       inputFormatters: inputFormatters,
       style: Get.theme.textTheme.labelMedium,
       obscureText: obscureText!,
+      maxLines: maxLines,
       controller: controller,
       onFieldSubmitted: onFieldSubmitted,
       autovalidateMode: AutovalidateMode.onUserInteraction,

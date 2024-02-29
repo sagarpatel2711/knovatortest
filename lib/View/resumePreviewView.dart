@@ -70,9 +70,6 @@ class ResumePreviewView extends StatelessWidget {
                               _customContainer(title: "LANGUAGES"),
                               _customText(title: "English"),
                               _customText(title: "Hindi"),
-                              _customContainer(title: "SKILL"),
-                              _customText(title: "Skill 1"),
-                              _customText(title: "Skill 2"),
                               _customContainer(title: "ACHIEVEMENTS"),
                               _customText(
                                   title: "Best Employee of 3rd Quater of 2023"),
@@ -194,11 +191,6 @@ class ResumePreviewView extends StatelessWidget {
                             ),
                             _titleText(title: "PROJECT"),
                             _customText(title: "Description", maxLine: 3),
-                            _titleText(title: "REFERENCE"),
-                            _customText(title: "name", maxLine: 3),
-                            _customText(title: "post", maxLine: 3),
-                            _customText(title: "email", maxLine: 3),
-                            _customText(title: "number", maxLine: 3)
                           ],
                         ),
                       ),
