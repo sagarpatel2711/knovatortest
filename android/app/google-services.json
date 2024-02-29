@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1066796981708",
+    "project_id": "knovetottest",
+    "storage_bucket": "knovetottest.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1066796981708:android:219aae9f2047f27ce09169",
+        "android_client_info": {
+          "package_name": "com.example.knovatortest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFK_mdo-u68qu3BoGyKaD9esrcFNIAYNI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
