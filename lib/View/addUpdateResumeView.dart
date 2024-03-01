@@ -465,6 +465,7 @@ class _AddUpdateResumeViewState extends State<AddUpdateResumeView> {
                           fireDBController.projectNameController.clear();
                           fireDBController.projectDescController.clear();
                           fireDBController.nameController.clear();
+
                           selectedStartDate = DateTime.now();
                           selectedEduStartDate = DateTime.now();
                           selectedEndDate = DateTime.now();
@@ -805,7 +806,7 @@ class _AddUpdateResumeViewState extends State<AddUpdateResumeView> {
                     await fireDBController.addProjModalData();
 
                     fireDBController.projectNameController.clear();
-                    fireDBController.descController.clear();
+                    fireDBController.projectDescController.clear();
                     setState(() {});
                     Get.back();
                   },

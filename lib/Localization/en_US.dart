@@ -49,5 +49,6 @@ Map<String, String> enUS = {
   "projectname": "Project Name",
   "aboutproject": "About Project",
   "about": "About",
-  "add": "Add"
+  "add": "Add",
+  "resumeisempty": 'Resume is Empty'
 };

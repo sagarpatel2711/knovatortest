@@ -183,8 +183,8 @@ class ResumePreviewView extends StatelessWidget {
                                     ),
                                     _titleText(title: "education".tr),
                                     ListView.builder(
-                                      itemCount:
-                                          fireDBController.addEduModal.length,
+                                      itemCount: fireDBController
+                                          .educationModal.length,
                                       shrinkWrap: true,
                                       physics:
                                           const NeverScrollableScrollPhysics(),
