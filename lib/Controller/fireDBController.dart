@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:knovatortest/Modal/resumeModal.dart';
+import 'package:knovatortest/Themes/appColors.dart';
 import 'package:knovatortest/Utility/logger.dart';
 
 import '../Widgets/imgStorage.dart';
@@ -75,7 +76,12 @@ class FireDBController extends GetxController {
             .collection('project')
             .add(addProj.toJson());
       }
+      Get.snackbar("Success", "Resume Added Successfully",
+          backgroundColor: AppColors.greenColor,
+          colorText: AppColors.whiteColor);
     } catch (e) {
+      Get.snackbar("Error", "Resume Not Added",
+          backgroundColor: AppColors.redColor, colorText: AppColors.whiteColor);
       logger.e(e);
     }
   }
@@ -91,7 +97,7 @@ class FireDBController extends GetxController {
     }
   }
 
-  getData({int index = 0}) async {
+  getData() async {
     try {
       QuerySnapshot querySnapshot = await resumeRefrence.get();
       final List<ResumeModal> retriveData = querySnapshot.docs
@@ -162,8 +168,16 @@ class FireDBController extends GetxController {
   }
 
   deleteResume(String id) async {
-    await resumeRefrence.doc(id).delete();
-    update();
+    try {
+      await resumeRefrence.doc(id).delete();
+      Get.snackbar("Success", "Resume Successfully Deleted",
+          backgroundColor: AppColors.greenColor,
+          colorText: AppColors.whiteColor);
+      update();
+    } catch (e) {
+      Get.snackbar("Error", "Resume Not Deleted",
+          backgroundColor: AppColors.redColor, colorText: AppColors.whiteColor);
+    }
   }
 
   addWorkModalData({String joinDate = "", String endDate = ""}) async {
@@ -192,13 +206,13 @@ class FireDBController extends GetxController {
     addProjModal.add(ProjectModal(
         desc: projectDescController.text,
         projName: projectNameController.text));
+
     return addProjModal;
   }
 
   @override
   void onInit() {
     resumeRefrence = firestore.collection('resume');
-    // TODO: implement onInit
     super.onInit();
   }
 }

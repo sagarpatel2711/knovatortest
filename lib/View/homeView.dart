@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:knovatortest/Controller/fireDBController.dart';
 import 'package:knovatortest/Controller/homeController.dart';
+import 'package:knovatortest/Localization/iconAssets.dart';
 import 'package:knovatortest/Routes/pages.dart';
 import 'package:knovatortest/Themes/appColors.dart';
 import 'package:knovatortest/Themes/themeStyle.dart';
 import 'package:knovatortest/Widgets/customButton.dart';
 
+// ignore: must_be_immutable
 class HomeView extends StatelessWidget {
   HomeView({super.key});
   FireDBController fireDBController = Get.put(FireDBController());
@@ -23,7 +25,7 @@ class HomeView extends StatelessWidget {
     loadData();
     return Scaffold(
       appBar: AppBar(
-        title: Text("Resume Builder"),
+        title: Text("resumebuilder".tr),
         actions: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -32,7 +34,7 @@ class HomeView extends StatelessWidget {
                   Get.toNamed(Routes.AddUpdateResumeView);
                 },
                 icon: Icon(
-                  Icons.add,
+                  IconAssets.addIcon,
                   size: 35,
                   color: AppColors.whiteColor,
                 )),
@@ -41,7 +43,7 @@ class HomeView extends StatelessWidget {
       ),
       body: Obx(
         () => isLoading.value
-            ? Center(
+            ? const Center(
                 child: CircularProgressIndicator(
                   color: AppColors.deepBlueColor,
                   backgroundColor: AppColors.whiteColor,
@@ -50,12 +52,13 @@ class HomeView extends StatelessWidget {
             : ListView.builder(
                 itemCount: fireDBController.resumeModal.length,
                 shrinkWrap: true,
-                physics: AlwaysScrollableScrollPhysics(),
+                physics: const AlwaysScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   return Container(
                     width: Get.width,
-                    margin: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-                    padding: EdgeInsets.symmetric(vertical: 5),
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+                    padding: const EdgeInsets.symmetric(vertical: 5),
                     clipBehavior: Clip.antiAliasWithSaveLayer,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
@@ -71,16 +74,17 @@ class HomeView extends StatelessWidget {
                                   Get.toNamed(Routes.AddUpdateResumeView);
                                 },
                                 icon: Icon(
-                                  Icons.edit,
+                                  IconAssets.editIcon,
                                   color: AppColors.darkGreenColor,
                                 )),
                             IconButton(
                                 onPressed: () {
                                   fireDBController.deleteResume(
                                       fireDBController.resumeModal[index].id);
+                                  fireDBController.getData();
                                 },
                                 icon: Icon(
-                                  Icons.delete,
+                                  IconAssets.deleteIcon,
                                   color: AppColors.redColor,
                                 ))
                           ],
@@ -110,6 +114,7 @@ class HomeView extends StatelessWidget {
                           ),
                         ),
                         Container(
+                          decoration: const BoxDecoration(),
                           width: Get.width / 2,
                           height: 40,
                           child: CustomButton(
@@ -121,7 +126,7 @@ class HomeView extends StatelessWidget {
                               });
                             },
                             child: Text(
-                              "Preview",
+                              "preview".tr,
                               style: CustomTextStyle.text1,
                             ),
                           ),

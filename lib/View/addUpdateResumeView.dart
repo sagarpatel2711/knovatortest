@@ -5,15 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cupertino_datetime_picker/flutter_cupertino_datetime_picker.dart';
 import 'package:get/get.dart';
 import 'package:knovatortest/Controller/fireDBController.dart';
+import 'package:knovatortest/Localization/iconAssets.dart';
 import 'package:knovatortest/Localization/imageAssets.dart';
+import 'package:knovatortest/Routes/pages.dart';
 import 'package:knovatortest/Themes/appColors.dart';
 import 'package:knovatortest/Themes/customTextFormField.dart';
 import 'package:knovatortest/Themes/themeStyle.dart';
 import 'package:knovatortest/Widgets/customButton.dart';
 
 class AddUpdateResumeView extends StatefulWidget {
-  AddUpdateResumeView({super.key});
-
   @override
   State<AddUpdateResumeView> createState() => _AddUpdateResumeViewState();
 }
@@ -25,6 +25,7 @@ class _AddUpdateResumeViewState extends State<AddUpdateResumeView> {
   DateTime selectedEndDate = DateTime.now();
   DateTime selectedEduEndDate = DateTime.now();
   RxBool isLoadBtn = false.obs;
+  GlobalKey<FormState> formKey = GlobalKey();
 
   void _selectStartDate(BuildContext context) {
     DatePicker.showDatePicker(
@@ -94,7 +95,7 @@ class _AddUpdateResumeViewState extends State<AddUpdateResumeView> {
     );
     if (result == null) {
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("Image")));
+          .showSnackBar(const SnackBar(content: Text("Image")));
       return null;
     }
 
@@ -104,301 +105,393 @@ class _AddUpdateResumeViewState extends State<AddUpdateResumeView> {
 
   @override
   Widget build(BuildContext context) {
+    String patttern = r'(^(?:[+0]9{10})?[0-9]{10}$)';
+    RegExp regExp1 = RegExp(patttern);
+    String p =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regExp = RegExp(p);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: IconButton(
             onPressed: () => Get.back(),
             icon: Icon(
-              Icons.arrow_back,
+              IconAssets.arrowBackIcon,
               color: AppColors.whiteColor,
             )),
-        title: Text("Add Resume"),
+        title: Text("addresume".tr),
       ),
-      body: Container(
-        height: Get.height,
-        width: Get.width,
-        color: AppColors.whiteColor,
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Stack(
-                  alignment: Alignment.bottomRight,
-                  children: [
-                    CircleAvatar(
-                      radius: 70,
-                      backgroundColor: AppColors.whiteColor,
-                      backgroundImage: fireDBController.photoUrl.isNotEmpty
-                          ? fireDBController.photoUrl
-                                  .contains("firebasestorage")
-                              ? NetworkImage(fireDBController.photoUrl)
-                              : FileImage(File(fireDBController.photoUrl))
-                                  as ImageProvider
-                          : AssetImage(ImageAssets.prevImg),
-                    ),
-                    IconButton(
-                        onPressed: () => selectImg(context),
-                        icon: Icon(
-                          Icons.camera_alt_outlined,
-                          color: AppColors.blackColor,
-                        ))
-                  ],
-                ),
-              ),
-              SizedBox(height: 10),
-              CustomTextFormField(
-                hinttext: "Enter your Name",
-                controller: fireDBController.nameController,
-                labeltext: "Name",
-                keyboardType: TextInputType.name,
-                obscureText: false,
-                iconbutton:
-                    IconButton(onPressed: () {}, icon: Icon(Icons.person)),
-              ),
-              SizedBox(height: 10),
-              CustomTextFormField(
-                controller: fireDBController.linkedInController,
-                hinttext: "Enter your linkedin url",
-                labeltext: "Linkedin",
-                keyboardType: TextInputType.name,
-                obscureText: false,
-                iconbutton:
-                    IconButton(onPressed: () {}, icon: Icon(Icons.person)),
-              ),
-              SizedBox(height: 10),
-              CustomTextFormField(
-                controller: fireDBController.githubController,
-                hinttext: "Enter your Github url",
-                labeltext: "Github",
-                keyboardType: TextInputType.name,
-                obscureText: false,
-                iconbutton:
-                    IconButton(onPressed: () {}, icon: Icon(Icons.person)),
-              ),
-              SizedBox(height: 10),
-              CustomTextFormField(
-                controller: fireDBController.numberController,
-                hinttext: "5616256589",
-                labeltext: "Number",
-                keyboardType: TextInputType.number,
-                obscureText: false,
-                iconbutton:
-                    IconButton(onPressed: () {}, icon: Icon(Icons.person)),
-              ),
-              SizedBox(height: 10),
-              CustomTextFormField(
-                controller: fireDBController.emailController,
-                hinttext: "adf@gmail.com",
-                labeltext: "Email",
-                keyboardType: TextInputType.name,
-                obscureText: false,
-                iconbutton:
-                    IconButton(onPressed: () {}, icon: Icon(Icons.person)),
-              ),
-              SizedBox(height: 10),
-              CustomTextFormField(
-                controller: fireDBController.addressController,
-                hinttext: "city,state",
-                labeltext: "Address",
-                keyboardType: TextInputType.name,
-                obscureText: false,
-                iconbutton:
-                    IconButton(onPressed: () {}, icon: Icon(Icons.person)),
-              ),
-              SizedBox(height: 10),
-              CustomTextFormField(
-                controller: fireDBController.languagesController,
-                hinttext: "Hindi,English,Gujarati",
-                labeltext: "Languages",
-                keyboardType: TextInputType.name,
-                obscureText: false,
-                iconbutton:
-                    IconButton(onPressed: () {}, icon: Icon(Icons.person)),
-              ),
-              SizedBox(height: 10),
-              CustomTextFormField(
-                controller: fireDBController.achivmentController,
-                hinttext: "Best Employee",
-                labeltext: "Achievements",
-                maxLines: 3,
-                keyboardType: TextInputType.name,
-                obscureText: false,
-              ),
-              SizedBox(height: 10),
-              CustomTextFormField(
-                controller: fireDBController.interestsController,
-                hinttext: "Singing,Playing sports",
-                labeltext: "Interests",
-                keyboardType: TextInputType.name,
-                obscureText: false,
-                iconbutton:
-                    IconButton(onPressed: () {}, icon: Icon(Icons.person)),
-              ),
-              SizedBox(height: 10),
-              CustomTextFormField(
-                controller: fireDBController.objectiveController,
-                hinttext: "objective",
-                labeltext: "Objective",
-                keyboardType: TextInputType.name,
-                obscureText: false,
-                iconbutton:
-                    IconButton(onPressed: () {}, icon: Icon(Icons.person)),
-              ),
-              SizedBox(height: 10),
-              ListTile(
-                title: Text(
-                  "Work Experience",
-                  style: Get.textTheme.titleLarge,
-                ),
-                trailing: IconButton(
-                    onPressed: () => _workAlert(),
-                    icon: Icon(
-                      Icons.add,
-                      color: AppColors.blackColor,
-                    )),
-              ),
-              SizedBox(height: 5),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: fireDBController.addWorkModal.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+      body: Form(
+        key: formKey,
+        child: Container(
+          height: Get.height,
+          width: Get.width,
+          color: AppColors.whiteColor,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Stack(
+                    alignment: Alignment.bottomRight,
                     children: [
-                      Text(
-                        "Company Name : ${fireDBController.addWorkModal[index].compName}",
-                        style: Get.textTheme.labelMedium,
+                      CircleAvatar(
+                        radius: 70,
+                        backgroundColor: AppColors.whiteColor,
+                        backgroundImage: fireDBController.photoUrl.isNotEmpty
+                            ? fireDBController.photoUrl
+                                    .contains("firebasestorage")
+                                ? NetworkImage(fireDBController.photoUrl)
+                                : FileImage(File(fireDBController.photoUrl))
+                                    as ImageProvider
+                            : AssetImage(ImageAssets.prevImg),
                       ),
-                      Text(
-                        "Job Name : ${fireDBController.addWorkModal[index].jobName}",
-                        style: Get.textTheme.labelMedium,
-                      ),
-                      Text(
-                        "Description: ${fireDBController.addWorkModal[index].desc}",
-                        style: Get.textTheme.labelMedium,
-                      ),
-                      Text(
-                        "Joining Date: ${fireDBController.addWorkModal[index].joinDate}",
-                        style: Get.textTheme.labelMedium,
-                      ),
-                      Text(
-                        "Ending Date: ${fireDBController.addWorkModal[index].endDate}",
-                        style: Get.textTheme.labelMedium,
-                      ),
+                      IconButton(
+                          onPressed: () => selectImg(context),
+                          icon: Icon(
+                            IconAssets.cameraIcon,
+                            color: AppColors.blackColor,
+                          ))
                     ],
-                  );
-                },
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              ListTile(
-                title: Text(
-                  "Education",
-                  style: Get.textTheme.titleLarge,
+                  ),
                 ),
-                trailing: IconButton(
-                    onPressed: () => _educationAlert(),
-                    icon: Icon(
-                      Icons.add,
-                      color: AppColors.blackColor,
-                    )),
-              ),
-              SizedBox(height: 5),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: fireDBController.addEduModal.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "School/College Name : ${fireDBController.addEduModal[index].name}",
-                        style: Get.textTheme.labelMedium,
-                      ),
-                      Text(
-                        "Course : ${fireDBController.addEduModal[index].course}",
-                        style: Get.textTheme.labelMedium,
-                      ),
-                      Text(
-                        "Percentage: ${fireDBController.addEduModal[index].percentage} %",
-                        style: Get.textTheme.labelMedium,
-                      ),
-                      Text(
-                        "${fireDBController.addEduModal[index].joinYear}-${fireDBController.addEduModal[index].endYear}",
-                        style: Get.textTheme.labelMedium,
-                      ),
-                    ],
-                  );
-                },
-              ),
-              SizedBox(height: 10),
-              ListTile(
-                title: Text(
-                  "Project",
-                  style: Get.textTheme.titleLarge,
-                ),
-                trailing: IconButton(
-                    onPressed: () => _projectAlert(),
-                    icon: Icon(
-                      Icons.add,
-                      color: AppColors.blackColor,
-                    )),
-              ),
-              SizedBox(height: 5),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: fireDBController.addProjModal.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Project Name : ${fireDBController.addProjModal[index].projName}",
-                        style: Get.textTheme.labelMedium,
-                      ),
-                      Text(
-                        "About : ${fireDBController.addProjModal[index].desc}",
-                        maxLines: 5,
-                        style: Get.textTheme.labelMedium,
-                      ),
-                    ],
-                  );
-                },
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Obx(
-                () => CustomButton(
-                  onTap: () async {
-                    if (isLoadBtn.value == false) {
-                      isLoadBtn.value = true;
-                      await fireDBController.setData();
-                      isLoadBtn.value = false;
+                const SizedBox(height: 10),
+                CustomTextFormField(
+                  hinttext: "entername".tr,
+                  controller: fireDBController.nameController,
+                  labeltext: "name".tr,
+                  keyboardType: TextInputType.name,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Name can't Empty";
+                    } else if (value.length < 3) {
+                      return "Enter Minimum 3 Charecter";
+                    } else {
+                      return null;
                     }
                   },
-                  child: isLoadBtn.value
-                      ? CircularProgressIndicator(
-                          color: AppColors.whiteColor,
-                        )
-                      : Text(
-                          "Add",
-                          style: CustomTextStyle.text1,
-                        ),
+                  obscureText: false,
+                  iconbutton: IconButton(
+                      onPressed: () {}, icon: Icon(IconAssets.personIcon)),
                 ),
-              )
-            ],
+                const SizedBox(height: 10),
+                CustomTextFormField(
+                  controller: fireDBController.linkedInController,
+                  hinttext: "enterlinkedinurl".tr,
+                  labeltext: "linkedin".tr,
+                  keyboardType: TextInputType.name,
+                  obscureText: false,
+                  iconbutton: IconButton(
+                      onPressed: () {}, icon: Icon(IconAssets.webIcon)),
+                ),
+                const SizedBox(height: 10),
+                CustomTextFormField(
+                  controller: fireDBController.githubController,
+                  hinttext: "entergithuburl".tr,
+                  labeltext: "github".tr,
+                  keyboardType: TextInputType.name,
+                  obscureText: false,
+                  iconbutton: IconButton(
+                      onPressed: () {}, icon: Icon(IconAssets.webIcon)),
+                ),
+                SizedBox(height: 10),
+                CustomTextFormField(
+                  controller: fireDBController.numberController,
+                  hinttext: "5616256589",
+                  labeltext: "number".tr,
+                  keyboardType: TextInputType.number,
+                  obscureText: false,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Enter Your PhonevNumber".tr;
+                    } else if (!regExp1.hasMatch(value)) {
+                      return "Enter valid Phone Number".tr;
+                    }
+                    return null;
+                  },
+                  iconbutton: IconButton(
+                      onPressed: () {}, icon: Icon(IconAssets.phoneIcon)),
+                ),
+                const SizedBox(height: 10),
+                CustomTextFormField(
+                  controller: fireDBController.emailController,
+                  hinttext: "adf@gmail.com",
+                  labeltext: "email".tr,
+                  keyboardType: TextInputType.name,
+                  obscureText: false,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "enteremail".tr;
+                    } else if (!regExp.hasMatch(value.trim())) {
+                      return "entervalidemail".tr;
+                    }
+                    return null;
+                  },
+                  iconbutton: IconButton(
+                      onPressed: () {}, icon: Icon(IconAssets.emailcon)),
+                ),
+                const SizedBox(height: 10),
+                CustomTextFormField(
+                  controller: fireDBController.addressController,
+                  hinttext: "city".tr,
+                  labeltext: "address".tr,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "City can't Empty";
+                    } else if (value.length < 3) {
+                      return "Enter Minimum 3 Charecter";
+                    } else {
+                      return null;
+                    }
+                  },
+                  keyboardType: TextInputType.name,
+                  obscureText: false,
+                  iconbutton: IconButton(
+                      onPressed: () {}, icon: Icon(IconAssets.locationcon)),
+                ),
+                const SizedBox(height: 10),
+                CustomTextFormField(
+                  controller: fireDBController.languagesController,
+                  hinttext: "hindi".tr,
+                  labeltext: "sanguages".tr,
+                  keyboardType: TextInputType.name,
+                  obscureText: false,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Languages can't Empty";
+                    } else if (value.length < 3) {
+                      return "Enter Minimum 3 Charecter";
+                    } else {
+                      return null;
+                    }
+                  },
+                  iconbutton: IconButton(
+                      onPressed: () {}, icon: Icon(IconAssets.langIcon)),
+                ),
+                const SizedBox(height: 10),
+                CustomTextFormField(
+                  controller: fireDBController.achivmentController,
+                  hinttext: "achievements".tr,
+                  labeltext: "Achievements".tr,
+                  maxLines: 3,
+                  keyboardType: TextInputType.name,
+                  obscureText: false,
+                ),
+                const SizedBox(height: 10),
+                CustomTextFormField(
+                  controller: fireDBController.interestsController,
+                  hinttext: "sports".tr,
+                  labeltext: "interests".tr,
+                  keyboardType: TextInputType.name,
+                  obscureText: false,
+                  iconbutton: IconButton(
+                      onPressed: () {}, icon: Icon(IconAssets.flagIcon)),
+                ),
+                const SizedBox(height: 10),
+                CustomTextFormField(
+                  controller: fireDBController.objectiveController,
+                  hinttext: "objectives".tr,
+                  labeltext: "objectives".tr,
+                  keyboardType: TextInputType.name,
+                  obscureText: false,
+                  iconbutton:
+                      IconButton(onPressed: () {}, icon: Icon(Icons.person)),
+                ),
+                const SizedBox(height: 10),
+                ListTile(
+                  title: Text(
+                    "workexperience".tr,
+                    style: Get.textTheme.titleLarge,
+                  ),
+                  trailing: IconButton(
+                      onPressed: () => _workAlert(),
+                      icon: Icon(
+                        IconAssets.addIcon,
+                        color: AppColors.blackColor,
+                      )),
+                ),
+                const SizedBox(height: 5),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: fireDBController.addWorkModal.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Company Name : ${fireDBController.addWorkModal[index].compName}",
+                            style: Get.textTheme.labelMedium,
+                          ),
+                          Text(
+                            "Job Name : ${fireDBController.addWorkModal[index].jobName}",
+                            style: Get.textTheme.labelMedium,
+                          ),
+                          Text(
+                            "Description: ${fireDBController.addWorkModal[index].desc}",
+                            style: Get.textTheme.labelMedium,
+                          ),
+                          Text(
+                            "Joining Date: ${fireDBController.addWorkModal[index].joinDate}",
+                            style: Get.textTheme.labelMedium,
+                          ),
+                          Text(
+                            "Ending Date: ${fireDBController.addWorkModal[index].endDate}",
+                            style: Get.textTheme.labelMedium,
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                ListTile(
+                  title: Text(
+                    "educations".tr,
+                    style: Get.textTheme.titleLarge,
+                  ),
+                  trailing: IconButton(
+                      onPressed: () => _educationAlert(),
+                      icon: Icon(
+                        Icons.add,
+                        color: AppColors.blackColor,
+                      )),
+                ),
+                const SizedBox(height: 5),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: fireDBController.addEduModal.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "School/College Name : ${fireDBController.addEduModal[index].name}",
+                            style: Get.textTheme.labelMedium,
+                          ),
+                          Text(
+                            "Course : ${fireDBController.addEduModal[index].course}",
+                            style: Get.textTheme.labelMedium,
+                          ),
+                          Text(
+                            "Percentage: ${fireDBController.addEduModal[index].percentage} %",
+                            style: Get.textTheme.labelMedium,
+                          ),
+                          Text(
+                            "${fireDBController.addEduModal[index].joinYear}-${fireDBController.addEduModal[index].endYear}",
+                            style: Get.textTheme.labelMedium,
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(height: 10),
+                ListTile(
+                  title: Text(
+                    "projects".tr,
+                    style: Get.textTheme.titleLarge,
+                  ),
+                  trailing: IconButton(
+                      onPressed: () => _projectAlert(),
+                      icon: Icon(
+                        IconAssets.addIcon,
+                        color: AppColors.blackColor,
+                      )),
+                ),
+                const SizedBox(height: 5),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: fireDBController.addProjModal.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Project Name : ${fireDBController.addProjModal[index].projName}",
+                            style: Get.textTheme.labelMedium,
+                          ),
+                          Text(
+                            "About : ${fireDBController.addProjModal[index].desc}",
+                            maxLines: 5,
+                            style: Get.textTheme.labelMedium,
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Obx(
+                  () => CustomButton(
+                    onTap: () async {
+                      if (isLoadBtn.value == false) {
+                        if (formKey.currentState!.validate()) {
+                          isLoadBtn.value = true;
+                          await fireDBController.setData();
+                          await fireDBController.getData();
+                          fireDBController.projectNameController.clear();
+                          fireDBController.descController.clear();
+                          fireDBController.linkedInController.clear();
+                          fireDBController.githubController.clear();
+                          fireDBController.emailController.clear();
+                          fireDBController.addressController.clear();
+                          fireDBController.languagesController.clear();
+                          fireDBController.achivmentController.clear();
+                          fireDBController.objectiveController.clear();
+                          fireDBController.numberController.clear();
+                          fireDBController.compNameController.clear();
+                          fireDBController.jobNameController.clear();
+                          fireDBController.schoolNameController.clear();
+                          fireDBController.courseController.clear();
+                          fireDBController.percentageController.clear();
+                          fireDBController.projectNameController.clear();
+                          fireDBController.projectDescController.clear();
+                          fireDBController.nameController.clear();
+                          selectedStartDate = DateTime.now();
+                          selectedEduStartDate = DateTime.now();
+                          selectedEndDate = DateTime.now();
+                          selectedEduEndDate = DateTime.now();
+                          fireDBController.addProjModal.clear();
+                          fireDBController.addEduModal.clear();
+                          fireDBController.photoUrl = "";
+                          fireDBController.addWorkModal.clear();
+                          Get.offAllNamed(Routes.HomeView);
+
+                          isLoadBtn.value = false;
+                        }
+                      }
+                    },
+                    child: isLoadBtn.value
+                        ? const CircularProgressIndicator(
+                            color: AppColors.deepBlueColor,
+                            backgroundColor: AppColors.whiteColor,
+                          )
+                        : Text(
+                            "add".tr,
+                            style: CustomTextStyle.text1,
+                          ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -411,7 +504,7 @@ class _AddUpdateResumeViewState extends State<AddUpdateResumeView> {
       builder: (context) {
         return AlertDialog(
           title: Text(
-            "Add Work Exeprience",
+            "addworkexeprience".tr,
             style: Get.textTheme.titleLarge,
           ),
           content: SingleChildScrollView(
@@ -420,42 +513,42 @@ class _AddUpdateResumeViewState extends State<AddUpdateResumeView> {
               children: [
                 CustomTextFormField(
                   controller: fireDBController.compNameController,
-                  hinttext: "xyz Tech.",
-                  labeltext: "Company name",
+                  hinttext: "xyztech".tr,
+                  labeltext: "companyname".tr,
                   keyboardType: TextInputType.name,
                   obscureText: false,
-                  iconbutton:
-                      IconButton(onPressed: () {}, icon: Icon(Icons.person)),
+                  iconbutton: IconButton(
+                      onPressed: () {}, icon: Icon(IconAssets.compactIcon)),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 CustomTextFormField(
                   controller: fireDBController.jobNameController,
-                  hinttext: "xyz Tech.",
-                  labeltext: "Job name",
+                  hinttext: "flutterdevloper".tr,
+                  labeltext: "job".tr,
                   keyboardType: TextInputType.name,
                   obscureText: false,
-                  iconbutton:
-                      IconButton(onPressed: () {}, icon: Icon(Icons.person)),
+                  iconbutton: IconButton(
+                      onPressed: () {}, icon: const Icon(Icons.person)),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 CustomTextFormField(
                   controller: fireDBController.descController,
-                  hinttext: "Description.",
-                  labeltext: "Description",
+                  hinttext: "description".tr,
+                  labeltext: "description".tr,
                   keyboardType: TextInputType.name,
                   obscureText: false,
-                  iconbutton:
-                      IconButton(onPressed: () {}, icon: Icon(Icons.person)),
+                  iconbutton: IconButton(
+                      onPressed: () {}, icon: Icon(IconAssets.detailsIcon)),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Text(
-                  "Joining date",
+                  "joiningdate".tr,
                   style: Get.textTheme.labelMedium,
                 ),
                 Container(
@@ -472,7 +565,7 @@ class _AddUpdateResumeViewState extends State<AddUpdateResumeView> {
                       IconButton(
                           onPressed: () => _selectStartDate(context),
                           icon: Icon(
-                            Icons.calendar_month,
+                            IconAssets.calendarIcon,
                             color: AppColors.blackColor,
                           )),
                     ],
@@ -501,17 +594,17 @@ class _AddUpdateResumeViewState extends State<AddUpdateResumeView> {
                             _selectEndDate(context);
                           },
                           icon: Icon(
-                            Icons.calendar_month,
+                            IconAssets.calendarIcon,
                             color: AppColors.blackColor,
                           )),
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 CustomButton(
-                  child: Text("save"),
+                  child: Text("save".tr),
                   onTap: () async {
                     await fireDBController.addWorkModalData(
                         endDate:
@@ -519,6 +612,11 @@ class _AddUpdateResumeViewState extends State<AddUpdateResumeView> {
                         joinDate:
                             '${selectedStartDate.year}/${selectedStartDate.month}/${selectedStartDate.day}');
 
+                    fireDBController.compNameController.clear();
+                    fireDBController.jobNameController.clear();
+                    fireDBController.descController.clear();
+                    selectedEndDate = DateTime.now();
+                    selectedStartDate = DateTime.now();
                     setState(() {});
                     Get.back();
                   },
@@ -537,7 +635,7 @@ class _AddUpdateResumeViewState extends State<AddUpdateResumeView> {
       builder: (context) {
         return AlertDialog(
           title: Text(
-            "Add Education",
+            "addeducation".tr,
             style: Get.textTheme.titleLarge,
           ),
           content: SingleChildScrollView(
@@ -546,42 +644,42 @@ class _AddUpdateResumeViewState extends State<AddUpdateResumeView> {
               children: [
                 CustomTextFormField(
                   controller: fireDBController.schoolNameController,
-                  hinttext: "xyz School",
-                  labeltext: "School/College Name",
+                  hinttext: "xyzschool".tr,
+                  labeltext: "scname".tr,
                   keyboardType: TextInputType.name,
                   obscureText: false,
-                  iconbutton:
-                      IconButton(onPressed: () {}, icon: Icon(Icons.person)),
+                  iconbutton: IconButton(
+                      onPressed: () {}, icon: const Icon(Icons.person)),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 CustomTextFormField(
                   controller: fireDBController.courseController,
-                  hinttext: "Commers",
-                  labeltext: "Course",
+                  hinttext: "commerce".tr,
+                  labeltext: "course".tr,
                   keyboardType: TextInputType.name,
                   obscureText: false,
-                  iconbutton:
-                      IconButton(onPressed: () {}, icon: Icon(Icons.person)),
+                  iconbutton: IconButton(
+                      onPressed: () {}, icon: Icon(IconAssets.subjectIcon)),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 CustomTextFormField(
                   controller: fireDBController.percentageController,
-                  hinttext: "85%",
-                  labeltext: "Percentage",
+                  hinttext: "85",
+                  labeltext: "percentage".tr,
                   keyboardType: TextInputType.name,
                   obscureText: false,
-                  iconbutton:
-                      IconButton(onPressed: () {}, icon: Icon(Icons.person)),
+                  iconbutton: IconButton(
+                      onPressed: () {}, icon: Icon(IconAssets.percentageIcon)),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Text(
-                  "Joining date",
+                  "joiningdate".tr,
                   style: Get.textTheme.labelMedium,
                 ),
                 Container(
@@ -598,7 +696,7 @@ class _AddUpdateResumeViewState extends State<AddUpdateResumeView> {
                       IconButton(
                           onPressed: () => _selectEduStartDate(context),
                           icon: Icon(
-                            Icons.calendar_month,
+                            IconAssets.calendarIcon,
                             color: AppColors.blackColor,
                           )),
                     ],
@@ -627,23 +725,29 @@ class _AddUpdateResumeViewState extends State<AddUpdateResumeView> {
                             _selectEduEndDate(context);
                           },
                           icon: Icon(
-                            Icons.calendar_month,
+                            IconAssets.calendarIcon,
                             color: AppColors.blackColor,
                           )),
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 CustomButton(
-                  child: Text("save"),
+                  child: Text("add".tr),
                   onTap: () async {
                     await fireDBController.addEduModalData(
                         endDate:
                             '${selectedEduEndDate.year}/${selectedEduEndDate.month}',
                         joinDate:
                             '${selectedEduStartDate.year}/${selectedEduStartDate.month}');
+
+                    fireDBController.schoolNameController.clear();
+                    fireDBController.courseController.clear();
+                    fireDBController.percentageController.clear();
+                    selectedEduEndDate = DateTime.now();
+                    selectedEduStartDate = DateTime.now();
 
                     setState(() {});
                     Get.back();
@@ -663,7 +767,7 @@ class _AddUpdateResumeViewState extends State<AddUpdateResumeView> {
       builder: (context) {
         return AlertDialog(
           title: Text(
-            "Add Project",
+            "addproject".tr,
             style: Get.textTheme.titleLarge,
           ),
           content: SingleChildScrollView(
@@ -673,33 +777,35 @@ class _AddUpdateResumeViewState extends State<AddUpdateResumeView> {
                 CustomTextFormField(
                   controller: fireDBController.projectNameController,
                   hinttext: "MDU",
-                  labeltext: "Project Name",
+                  labeltext: "projectname".tr,
                   keyboardType: TextInputType.name,
                   obscureText: false,
-                  iconbutton:
-                      IconButton(onPressed: () {}, icon: Icon(Icons.person)),
+                  iconbutton: IconButton(
+                      onPressed: () {}, icon: const Icon(Icons.near_me)),
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 CustomTextFormField(
                   controller: fireDBController.projectDescController,
-                  hinttext: "About Project",
-                  labeltext: "About",
+                  hinttext: "aboutproject".tr,
+                  labeltext: "about".tr,
                   keyboardType: TextInputType.name,
                   obscureText: false,
                   maxLines: 5,
-                  iconbutton:
-                      IconButton(onPressed: () {}, icon: Icon(Icons.person)),
+                  iconbutton: IconButton(
+                      onPressed: () {}, icon: const Icon(Icons.abc_outlined)),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 CustomButton(
-                  child: Text("save"),
+                  child: Text("add".tr),
                   onTap: () async {
-                    fireDBController.addProjModalData();
+                    await fireDBController.addProjModalData();
 
+                    fireDBController.projectNameController.clear();
+                    fireDBController.descController.clear();
                     setState(() {});
                     Get.back();
                   },

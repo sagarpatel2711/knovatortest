@@ -7,6 +7,7 @@ import 'package:knovatortest/Modal/resumeModal.dart';
 import '../Themes/appColors.dart';
 import '../Themes/themeStyle.dart';
 
+// ignore: must_be_immutable
 class ResumePreviewView extends StatelessWidget {
   FireDBController fireDBController = Get.put(FireDBController());
   HomeController homeController = Get.put(HomeController());
@@ -34,17 +35,18 @@ class ResumePreviewView extends StatelessWidget {
               Icons.arrow_back,
               color: AppColors.whiteColor,
             )),
-        title: Text("Preview"),
+        title: Text("resume".tr),
       ),
       body: Obx(
         () => isLoading.value
-            ? Center(
+            ? const Center(
                 child: CircularProgressIndicator(
-                  color: AppColors.whiteColor,
+                  color: AppColors.deepBlueColor,
+                  backgroundColor: AppColors.whiteColor,
                 ),
               )
             : Container(
-                margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   color: AppColors.whiteColor,
@@ -59,7 +61,7 @@ class ResumePreviewView extends StatelessWidget {
                             height: 100,
                             width: Get.width,
                             alignment: Alignment.center,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: AppColors.greyColor,
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(15),
@@ -83,34 +85,35 @@ class ResumePreviewView extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 65,
                                       ),
-                                      _customContainer(title: "ABOUT ME"),
+                                      _customContainer(title: "aboutme".tr),
                                       _customText(
                                           title:
                                               "Github : ${resumeModal.githubUrl}"),
                                       _customText(
                                           title:
                                               "LinkedIn : ${resumeModal.linkedInUrl}"),
-                                      _customContainer(title: "CONTACT INFO"),
+                                      _customContainer(title: "contactinfo".tr),
                                       _customText(title: resumeModal.phoneNum),
                                       _customText(title: resumeModal.email),
                                       _customText(title: resumeModal.address),
-                                      _customContainer(title: "LANGUAGES"),
+                                      _customContainer(title: "languages".tr),
                                       _customText(
                                           title: resumeModal.languages,
                                           maxLine: 3),
-                                      _customContainer(title: "ACHIEVEMENTS"),
+                                      _customContainer(
+                                          title: "achievemenets".tr),
                                       _customText(
                                           title: resumeModal.achivements),
-                                      _customContainer(title: "INTARESTS"),
+                                      _customContainer(title: "intarests".tr),
                                       _customText(title: resumeModal.interests),
-                                      _customContainer(title: "OBJECTIVE"),
+                                      _customContainer(title: "objective".tr),
                                       _customText(
                                           title: resumeModal.objective,
                                           maxLine: 3),
-                                      SizedBox(height: 5)
+                                      const SizedBox(height: 5)
                                     ],
                                   ),
                                 ),
@@ -121,10 +124,11 @@ class ResumePreviewView extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    _titleText(title: "WORK EXPERIENCE"),
+                                    _titleText(title: "workexp".tr),
                                     ListView.builder(
                                       shrinkWrap: true,
-                                      physics: NeverScrollableScrollPhysics(),
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
                                       itemCount:
                                           fireDBController.workExpModal.length,
                                       itemBuilder: (context, index) {
@@ -177,12 +181,13 @@ class ResumePreviewView extends StatelessWidget {
                                         );
                                       },
                                     ),
-                                    _titleText(title: "EDUCATION"),
+                                    _titleText(title: "education".tr),
                                     ListView.builder(
                                       itemCount:
                                           fireDBController.addEduModal.length,
                                       shrinkWrap: true,
-                                      physics: NeverScrollableScrollPhysics(),
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
                                       itemBuilder: (context, index) {
                                         var eduData = fireDBController
                                             .educationModal[index];
@@ -234,12 +239,13 @@ class ResumePreviewView extends StatelessWidget {
                                         );
                                       },
                                     ),
-                                    _titleText(title: "PROJECT"),
+                                    _titleText(title: "project".tr),
                                     ListView.builder(
                                       itemCount:
                                           fireDBController.projectModal.length,
                                       shrinkWrap: true,
-                                      physics: NeverScrollableScrollPhysics(),
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
                                       itemBuilder: (context, index) {
                                         var projectData = fireDBController
                                             .projectModal[index];
@@ -272,7 +278,7 @@ class ResumePreviewView extends StatelessWidget {
                         ],
                       ),
                       Padding(
-                        padding: EdgeInsets.fromLTRB(5, 30, 5, 20),
+                        padding: const EdgeInsets.fromLTRB(5, 30, 5, 20),
                         child: CircleAvatar(
                           backgroundColor: AppColors.blackColor,
                           maxRadius: 70,
