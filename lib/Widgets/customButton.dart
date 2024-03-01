@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../Themes/appColors.dart';
-import '../Themes/themeStyle.dart';
 
 // ignore: must_be_immutable
 class CustomButton extends StatelessWidget {
-  String title;
+  Widget? child;
   void Function()? onTap;
-  CustomButton({super.key, this.title = "", this.onTap});
+  CustomButton({super.key, this.child, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +21,7 @@ class CustomButton extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
             color: AppColors.blackColor),
-        child: Text(
-          title,
-          style: CustomTextStyle.text1,
-        ),
+        child: child,
       ),
     );
   }

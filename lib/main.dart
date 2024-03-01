@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:knovatortest/Controller/fireDBController.dart';
+import 'package:knovatortest/Controller/homeController.dart';
 
 import 'Localization/localizationService.dart';
 import 'Routes/pages.dart';
@@ -9,6 +11,8 @@ import 'Themes/themes.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  Get.put(FireDBController());
+  Get.put(HomeController());
   runApp(MyApp());
 }
 

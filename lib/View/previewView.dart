@@ -40,7 +40,10 @@ class PreviewView extends StatelessWidget {
             const Spacer(),
             CustomButton(
               onTap: () => Get.toNamed(Routes.HomeView),
-              title: "Next",
+              child: Text(
+                "Next",
+                style: CustomTextStyle.text1,
+              ),
             )
           ],
         ),
