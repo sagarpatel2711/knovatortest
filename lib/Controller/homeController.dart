@@ -1,5 +1,9 @@
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
-  RxString resumeID = "".obs;
+  RxString selecTedID = "".obs;
+  RxInt selectedIndex = 0.obs;
+  RxString projectID = "".obs;
+  RxString eduID = "".obs;
+  RxString workID = "".obs;
 }

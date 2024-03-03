@@ -8,72 +8,40 @@ class ResumeModal {
   String name;
   String objective;
   String photoUrl;
-  String projName;
   String phoneNum;
   String linkedInUrl;
   String githubUrl;
-  List<EducationModal>? educationModal;
-  List<WorkExpModal>? workExpModal;
-  List<ProjectModal>? projectModal;
 
-  ResumeModal(
-      {this.id = "",
-      this.name = "",
-      this.email = "",
-      this.address = "",
-      this.languages = "",
-      this.photoUrl = "",
-      this.achivements = "",
-      this.interests = "",
-      this.objective = "",
-      this.projName = "",
-      this.linkedInUrl = "",
-      this.phoneNum = "",
-      this.githubUrl = "",
-      this.educationModal,
-      this.projectModal,
-      this.workExpModal});
+  ResumeModal({
+    this.id = "",
+    this.name = "",
+    this.email = "",
+    this.address = "",
+    this.languages = "",
+    this.photoUrl = "",
+    this.achivements = "",
+    this.interests = "",
+    this.objective = "",
+    this.linkedInUrl = "",
+    this.phoneNum = "",
+    this.githubUrl = "",
+  });
 
   factory ResumeModal.fromJson(Map<String, dynamic> json) {
-    var educationJson = json['educationModal'] as List?;
-    var workExpJson = json['workExpModal'] as List?;
-    var projectJson = json['projectModal'] as List?;
-    List<EducationModal>? educationData;
-    List<WorkExpModal>? workExpData;
-    List<ProjectModal>? projectData;
-
-    if (educationJson != null) {
-      educationData = educationJson
-          .map((educationJson) => EducationModal.fromJson(educationJson))
-          .toList();
-    }
-    if (workExpJson != null) {
-      workExpData = workExpJson
-          .map((workExpJson) => WorkExpModal.fromJson(workExpJson))
-          .toList();
-    }
-    if (projectJson != null) {
-      projectData = projectJson
-          .map((projectJson) => ProjectModal.fromJson(projectJson))
-          .toList();
-    }
     return ResumeModal(
-        id: json['id'],
-        achivements: json['achivements'],
-        address: json['address'],
-        email: json['email'],
-        interests: json['interests'],
-        languages: json['languages'],
-        name: json['name'],
-        objective: json['objective'],
-        photoUrl: json['photoUrl'],
-        projName: json['projName'],
-        linkedInUrl: json['linkedInUrl'],
-        phoneNum: json['phoneNum'],
-        githubUrl: json['githubLink'],
-        educationModal: educationData,
-        workExpModal: workExpData,
-        projectModal: projectData);
+      id: json['id'],
+      achivements: json['achivements'],
+      address: json['address'],
+      email: json['email'],
+      interests: json['interests'],
+      languages: json['languages'],
+      name: json['name'],
+      objective: json['objective'],
+      photoUrl: json['photoUrl'],
+      linkedInUrl: json['linkedInUrl'],
+      phoneNum: json['phoneNum'],
+      githubUrl: json['githubLink'],
+    );
   }
 
   Map<String, dynamic> toJson() => {
@@ -86,11 +54,7 @@ class ResumeModal {
         'name': name,
         'objective': objective,
         'photoUrl': photoUrl,
-        'projName': projName,
         'linkedInUrl': linkedInUrl,
-        'educationModal': educationModal,
-        'projectModal': projectModal,
-        'workExpModal': workExpModal,
         'phoneNum': phoneNum,
         'githubLink': githubUrl
       };

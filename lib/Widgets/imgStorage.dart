@@ -18,6 +18,7 @@ class Storage {
       final imgfile = await storage.ref('userdata/$fileName').putFile(file);
       final String downloadUrl = await imgfile.ref.getDownloadURL();
       fireDBController.photoUrl = downloadUrl;
+      logger.i("photot:  ${fireDBController.photoUrl}");
 
       return downloadUrl;
     } catch (e) {

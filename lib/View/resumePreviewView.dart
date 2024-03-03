@@ -15,11 +15,12 @@ class ResumePreviewView extends StatelessWidget {
 
   loadData() async {
     isLoading.value = true;
-    await fireDBController.getEduData(resumeID: homeController.resumeID.value);
+    await fireDBController.getEduData(
+        resumeID: homeController.selecTedID.value);
     await fireDBController.getWorkExpData(
-        resumeID: homeController.resumeID.value);
+        resumeID: homeController.selecTedID.value);
     await fireDBController.getProjectData(
-        resumeID: homeController.resumeID.value);
+        resumeID: homeController.selecTedID.value);
     isLoading.value = false;
   }
 

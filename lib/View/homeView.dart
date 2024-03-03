@@ -31,6 +31,8 @@ class HomeView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: IconButton(
                 onPressed: () {
+                  homeController.selecTedID.value = "";
+                  homeController.selectedIndex.value = 0;
                   Get.toNamed(Routes.AddUpdateResumeView);
                 },
                 icon: Icon(
@@ -77,7 +79,17 @@ class HomeView extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      homeController.selecTedID.value =
+                                          fireDBController
+                                              .resumeModal[index].id;
+                                      homeController.selecTedID.value =
+                                          fireDBController
+                                              .resumeModal[index].id;
+                                      homeController.selectedIndex.value =
+                                          index;
+                                      Get.toNamed(Routes.AddUpdateResumeView);
+                                    },
                                     icon: Icon(
                                       IconAssets.editIcon,
                                       color: AppColors.darkGreenColor,
@@ -125,7 +137,7 @@ class HomeView extends StatelessWidget {
                               height: 40,
                               child: CustomButton(
                                 onTap: () {
-                                  homeController.resumeID.value =
+                                  homeController.selecTedID.value =
                                       fireDBController.resumeModal[index].id;
                                   Get.toNamed(Routes.ResumePreviewView,
                                       arguments: {

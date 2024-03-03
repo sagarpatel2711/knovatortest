@@ -181,8 +181,11 @@ class FireDBController extends GetxController {
   }
 
   addWorkModalData({String joinDate = "", String endDate = ""}) async {
+    DocumentReference documentReference = resumeRefrence.doc();
+
     addWorkModal.add(
       WorkExpModal(
+          id: documentReference.collection('workExep').id,
           compName: compNameController.text,
           desc: descController.text,
           jobName: jobNameController.text,
@@ -192,8 +195,31 @@ class FireDBController extends GetxController {
     return addWorkModal;
   }
 
+  updateWorkData(
+      {String resumeID = "",
+      String projID = "",
+      String endYear = "",
+      String joinYear = ""}) async {
+    DocumentReference documentReference = resumeRefrence.doc(resumeID);
+    WorkExpModal reterviewProj = WorkExpModal(
+        id: projID,
+        compName: compNameController.text,
+        desc: descController.text,
+        endDate: endYear,
+        jobName: jobNameController.text,
+        joinDate: joinYear);
+
+    await documentReference
+        .collection('workExep')
+        .doc(projID)
+        .update(reterviewProj.toJson());
+    getWorkExpData(resumeID: resumeID);
+  }
+
   addEduModalData({String joinDate = "", String endDate = ""}) async {
+    DocumentReference documentReference = resumeRefrence.doc();
     addEduModal.add(EducationModal(
+        id: documentReference.collection('education').id,
         course: courseController.text,
         endYear: endDate,
         joinYear: joinDate,
@@ -202,12 +228,92 @@ class FireDBController extends GetxController {
     return addEduModal;
   }
 
+  updateEduData(
+      {String resumeID = "",
+      String projID = "",
+      String endYear = "",
+      String joinYear = ""}) async {
+    DocumentReference documentReference = resumeRefrence.doc(resumeID);
+    EducationModal reterviewProj = EducationModal(
+        id: projID,
+        course: courseController.text,
+        endYear: endYear,
+        joinYear: joinYear,
+        name: nameController.text,
+        percentage: percentageController.text);
+
+    await documentReference
+        .collection('education')
+        .doc(projID)
+        .update(reterviewProj.toJson());
+    getEduData(resumeID: resumeID);
+  }
+
   addProjModalData() async {
+    DocumentReference documentReference = resumeRefrence.doc();
+
     addProjModal.add(ProjectModal(
+        id: documentReference.collection('project').doc().id,
         desc: projectDescController.text,
         projName: projectNameController.text));
 
     return addProjModal;
+  }
+
+  updateProjModalData({String resumeID = "", String projID = ""}) async {
+    DocumentReference documentReference = resumeRefrence.doc(resumeID);
+    ProjectModal reterviewProj = ProjectModal(
+        desc: projectDescController.text,
+        id: projID,
+        projName: projectNameController.text);
+
+    await documentReference
+        .collection('project')
+        .doc(projID)
+        .update(reterviewProj.toJson());
+    getProjectData(resumeID: resumeID);
+  }
+
+  updateResume(String id) async {
+    ResumeModal retriveData = ResumeModal(
+      id: id,
+      address: addressController.text,
+      name: nameController.text,
+      email: emailController.text,
+      linkedInUrl: linkedInController.text,
+      githubUrl: githubController.text,
+      phoneNum: numberController.text,
+      languages: languagesController.text,
+      achivements: achivmentController.text,
+      interests: interestsController.text,
+      objective: objectiveController.text,
+      photoUrl: photoUrl,
+    );
+    final resumeJson = retriveData.toJson();
+
+    await resumeRefrence.doc(id).update(resumeJson);
+    DocumentReference documentReference = resumeRefrence.doc();
+
+    for (var addWork in addWorkModal) {
+      await resumeRefrence
+          .doc(documentReference.id)
+          .collection('workExep')
+          .add(addWork.toJson());
+    }
+    for (var addEdu in addEduModal) {
+      await resumeRefrence
+          .doc(documentReference.id)
+          .collection('education')
+          .add(addEdu.toJson());
+    }
+    for (var addProj in addProjModal) {
+      await resumeRefrence
+          .doc(documentReference.id)
+          .collection('project')
+          .add(addProj.toJson());
+    }
+
+    update();
   }
 
   @override
