@@ -3,15 +3,15 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cupertino_datetime_picker/flutter_cupertino_datetime_picker.dart';
 import 'package:get/get.dart';
-import 'package:knovatortest/Controller/fireDBController.dart';
-import 'package:knovatortest/Controller/homeController.dart';
-import 'package:knovatortest/Localization/iconAssets.dart';
-import 'package:knovatortest/Localization/imageAssets.dart';
-import 'package:knovatortest/Routes/pages.dart';
-import 'package:knovatortest/Themes/appColors.dart';
-import 'package:knovatortest/Themes/customTextFormField.dart';
-import 'package:knovatortest/Themes/themeStyle.dart';
-import 'package:knovatortest/Widgets/customButton.dart';
+import 'package:resume_maker/Controller/fireDBController.dart';
+import 'package:resume_maker/Controller/homeController.dart';
+import 'package:resume_maker/Localization/iconAssets.dart';
+import 'package:resume_maker/Localization/imageAssets.dart';
+import 'package:resume_maker/Routes/pages.dart';
+import 'package:resume_maker/Themes/appColors.dart';
+import 'package:resume_maker/Themes/customTextFormField.dart';
+import 'package:resume_maker/Themes/themeStyle.dart';
+import 'package:resume_maker/Widgets/customButton.dart';
 
 class AddUpdateResumeView extends StatefulWidget {
   @override

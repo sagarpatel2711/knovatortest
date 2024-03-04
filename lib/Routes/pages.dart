@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:knovatortest/View/addUpdateResumeView.dart';
-import 'package:knovatortest/View/homeView.dart';
-import 'package:knovatortest/View/resumePreviewView.dart';
+import 'package:resume_maker/View/addUpdateResumeView.dart';
+import 'package:resume_maker/View/homeView.dart';
+import 'package:resume_maker/View/resumePreviewView.dart';
 
 part 'routes.dart';
 

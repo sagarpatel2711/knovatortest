@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:knovatortest/Controller/fireDBController.dart';
-import 'package:knovatortest/Controller/homeController.dart';
-import 'package:knovatortest/Localization/iconAssets.dart';
-import 'package:knovatortest/Routes/pages.dart';
-import 'package:knovatortest/Themes/appColors.dart';
-import 'package:knovatortest/Themes/themeStyle.dart';
-import 'package:knovatortest/Widgets/customButton.dart';
+import 'package:resume_maker/Controller/fireDBController.dart';
+import 'package:resume_maker/Controller/homeController.dart';
+import 'package:resume_maker/Localization/iconAssets.dart';
+import 'package:resume_maker/Routes/pages.dart';
+import 'package:resume_maker/Themes/appColors.dart';
+import 'package:resume_maker/Themes/themeStyle.dart';
+import 'package:resume_maker/Widgets/customButton.dart';
 
 // ignore: must_be_immutable
 class HomeView extends StatelessWidget {

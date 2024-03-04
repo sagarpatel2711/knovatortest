@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:knovatortest/Modal/resumeModal.dart';
-import 'package:knovatortest/Themes/appColors.dart';
-import 'package:knovatortest/Utility/logger.dart';
+import 'package:resume_maker/Modal/resumeModal.dart';
+import 'package:resume_maker/Themes/appColors.dart';
+import 'package:resume_maker/Utility/logger.dart';
 
 import '../Widgets/imgStorage.dart';
 

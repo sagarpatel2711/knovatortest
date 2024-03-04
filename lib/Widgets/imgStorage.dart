@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
-import 'package:knovatortest/Controller/fireDBController.dart';
+import 'package:resume_maker/Controller/fireDBController.dart';
 
 import '../Utility/logger.dart';
 

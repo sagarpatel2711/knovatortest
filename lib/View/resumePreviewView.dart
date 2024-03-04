@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:knovatortest/Controller/fireDBController.dart';
-import 'package:knovatortest/Controller/homeController.dart';
-import 'package:knovatortest/Modal/resumeModal.dart';
+import 'package:resume_maker/Controller/fireDBController.dart';
+import 'package:resume_maker/Controller/homeController.dart';
+import 'package:resume_maker/Modal/resumeModal.dart';
 
 import '../Themes/appColors.dart';
 import '../Themes/themeStyle.dart';
