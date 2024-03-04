@@ -12,6 +12,7 @@ class ResumePreviewView extends StatelessWidget {
   FireDBController fireDBController = Get.put(FireDBController());
   HomeController homeController = Get.put(HomeController());
   RxBool isLoading = false.obs;
+  //TODO
 
   loadData() async {
     isLoading.value = true;
