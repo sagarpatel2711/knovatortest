@@ -8,6 +8,7 @@ abstract class Routes {
   static const HomeView = _Paths.HomeView;
   static const AddUpdateResumeView = _Paths.AddUpdateResumeView;
   static const ResumePreviewView = _Paths.ResumePreviewView;
+  static const ProjectView = _Paths.ProjectView;
 }
 
 abstract class _Paths {
@@ -16,4 +17,5 @@ abstract class _Paths {
   static const HomeView = '/HomeView';
   static const AddUpdateResumeView = '/AddUpdateResumeView';
   static const ResumePreviewView = '/ResumePreviewView';
+  static const ProjectView = '/ProjectView';
 }

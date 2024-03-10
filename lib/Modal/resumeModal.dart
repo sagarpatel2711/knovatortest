@@ -139,3 +139,22 @@ class ProjectModal {
         'id': id,
       };
 }
+
+class SelectedProjectModal {
+  String id;
+  String desc;
+  String projName;
+  String projectID;
+  SelectedProjectModal(
+      {this.id = "", this.desc = "", this.projName = "", this.projectID = ""});
+
+  factory SelectedProjectModal.fromJson(Map<String, dynamic> json) =>
+      SelectedProjectModal(
+          desc: json['desc'],
+          id: json['id'],
+          projName: json['projName'],
+          projectID: json['selectedID']);
+
+  Map<String, dynamic> toJson() =>
+      {'projName': projName, 'desc': desc, 'id': id, 'selectedID': projectID};
+}

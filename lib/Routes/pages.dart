@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:resume_maker/View/addUpdateResumeView.dart';
 import 'package:resume_maker/View/homeView.dart';
+import 'package:resume_maker/View/projectView.dart';
 import 'package:resume_maker/View/resumePreviewView.dart';
 
 part 'routes.dart';
@@ -20,6 +21,11 @@ class Pages {
     GetPage(
         name: _Paths.ResumePreviewView,
         page: () => ResumePreviewView(),
+        transition: Transition.leftToRight,
+        transitionDuration: const Duration(milliseconds: 200)),
+    GetPage(
+        name: _Paths.ProjectView,
+        page: () => ProjectView(),
         transition: Transition.leftToRight,
         transitionDuration: const Duration(milliseconds: 200)),
   ];

@@ -11,6 +11,7 @@ class FireDBController extends GetxController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   late CollectionReference resumeRefrence;
+  late CollectionReference projectRefrence;
   RxList<ResumeModal> resumeModal = <ResumeModal>[].obs;
   RxList<EducationModal> educationModal = <EducationModal>[].obs;
   RxList<WorkExpModal> workExpModal = <WorkExpModal>[].obs;
@@ -18,6 +19,7 @@ class FireDBController extends GetxController {
   RxList<WorkExpModal> addWorkModal = <WorkExpModal>[].obs;
   RxList<EducationModal> addEduModal = <EducationModal>[].obs;
   RxList<ProjectModal> addProjModal = <ProjectModal>[].obs;
+  RxList<SelectedProjectModal> selectedProjModal = <SelectedProjectModal>[].obs;
 
   TextEditingController nameController = TextEditingController();
   TextEditingController linkedInController = TextEditingController();
@@ -260,6 +262,49 @@ class FireDBController extends GetxController {
     return addProjModal;
   }
 
+  selectProjectData() async {
+    try {
+      // DocumentReference documentReference = resumeRefrence.doc();
+      for (var selectedProj in selectedProjModal) {
+        await firestore
+            .collection('selectedProject')
+            .add(selectedProj.toJson());
+      }
+    } catch (e) {
+      logger.e(e);
+    }
+  }
+
+  getSelectedProhject() async {
+    try {
+      QuerySnapshot queryprojshot =
+          await firestore.collection('selectedProject').get();
+      final List<SelectedProjectModal> retriveProjectData = queryprojshot.docs
+          .map((projectData) => SelectedProjectModal.fromJson(
+              projectData.data() as Map<String, dynamic>))
+          .toList();
+      selectedProjModal.clear();
+      selectedProjModal.assignAll(retriveProjectData);
+      update();
+    } catch (e) {
+      logger.i(e);
+    }
+  }
+
+  selectProjectModalData(
+      {String desc = "", String name = "", String projectId = ""}) async {
+    DocumentReference documentReference = projectRefrence.doc();
+
+    selectedProjModal.add(SelectedProjectModal(
+      projectID: documentReference.id,
+      id: projectId,
+      desc: desc,
+      projName: name,
+    ));
+
+    return addProjModal;
+  }
+
   updateProjModalData({String resumeID = "", String projID = ""}) async {
     DocumentReference documentReference = resumeRefrence.doc(resumeID);
     ProjectModal reterviewProj = ProjectModal(
@@ -319,6 +364,7 @@ class FireDBController extends GetxController {
   @override
   void onInit() {
     resumeRefrence = firestore.collection('resume');
+    projectRefrence = firestore.collection('selectedProject');
     super.onInit();
   }
 }

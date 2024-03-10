@@ -18,6 +18,7 @@ class HomeView extends StatelessWidget {
   loadData() async {
     isLoading.value = true;
     await fireDBController.getData();
+    await fireDBController.getSelectedProhject();
     isLoading.value = false;
   }
 
@@ -45,7 +46,16 @@ class HomeView extends StatelessWidget {
                   size: 35,
                   color: AppColors.whiteColor,
                 )),
-          )
+          ),
+          IconButton(
+              onPressed: () {
+                Get.toNamed(Routes.ProjectView);
+              },
+              icon: Icon(
+                IconAssets.personIcon,
+                size: 35,
+                color: AppColors.whiteColor,
+              ))
         ],
       ),
       body: LiquidPullToRefresh(
@@ -69,7 +79,7 @@ class HomeView extends StatelessWidget {
                       ),
                     )
                   : ListView.builder(
-                      itemCount: fireDBController.resumeModal.length,
+                      itemCount: fireDBController.selectedProjModal.length,
                       shrinkWrap: true,
                       physics: const AlwaysScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
@@ -91,15 +101,15 @@ class HomeView extends StatelessWidget {
                                 children: [
                                   IconButton(
                                       onPressed: () {
-                                        homeController.selecTedID.value =
-                                            fireDBController
-                                                .resumeModal[index].id;
-                                        homeController.selecTedID.value =
-                                            fireDBController
-                                                .resumeModal[index].id;
-                                        homeController.selectedIndex.value =
-                                            index;
-                                        Get.toNamed(Routes.AddUpdateResumeView);
+                                        // homeController.selecTedID.value =
+                                        //     fireDBController
+                                        //         .resumeModal[index].id;
+                                        // homeController.selecTedID.value =
+                                        //     fireDBController
+                                        //         .resumeModal[index].id;
+                                        // homeController.selectedIndex.value =
+                                        //     index;
+                                        // Get.toNamed(Routes.AddUpdateResumeView);
                                       },
                                       icon: Icon(
                                         IconAssets.editIcon,
@@ -107,10 +117,10 @@ class HomeView extends StatelessWidget {
                                       )),
                                   IconButton(
                                       onPressed: () {
-                                        fireDBController.deleteResume(
-                                            fireDBController
-                                                .resumeModal[index].id);
-                                        fireDBController.getData();
+                                        // fireDBController.deleteResume(
+                                        //     fireDBController
+                                        //         .resumeModal[index].id);
+                                        // fireDBController.getData();
                                       },
                                       icon: Icon(
                                         IconAssets.deleteIcon,
@@ -119,29 +129,32 @@ class HomeView extends StatelessWidget {
                                 ],
                               ),
                               ListTile(
-                                leading: Container(
-                                  height: 80,
-                                  width: 100,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      image: DecorationImage(
-                                          image: NetworkImage(fireDBController
-                                              .resumeModal[index].photoUrl),
-                                          fit: BoxFit.contain)),
-                                ),
+                                // leading: Container(
+                                //   height: 80,
+                                //   width: 100,
+                                //   decoration: BoxDecoration(
+                                //       borderRadius: BorderRadius.circular(10),
+                                //       image: DecorationImage(
+                                //           image: NetworkImage(fireDBController
+                                //               .resumeModal[index].photoUrl),
+                                //           fit: BoxFit.contain)),
+                                // ),
                                 title: Text(
-                                  fireDBController.resumeModal[index].name,
+                                  fireDBController
+                                      .selectedProjModal[index].projName,
                                   style: Get.textTheme.labelMedium,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 subtitle: Text(
-                                  fireDBController.resumeModal[index].email,
+                                  fireDBController
+                                      .selectedProjModal[index].desc,
                                   style: CustomTextStyle.text5,
-                                  maxLines: 1,
+                                  maxLines: 3,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
+                              /** 
                               Container(
                                 decoration: const BoxDecoration(),
                                 width: Get.width / 2,
@@ -162,6 +175,7 @@ class HomeView extends StatelessWidget {
                                   ),
                                 ),
                               )
+                        */
                             ],
                           ),
                         );
